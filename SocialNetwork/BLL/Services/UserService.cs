@@ -123,6 +123,22 @@ namespace SocialNetwork.BLL.Services
             if (this.friendRepository.Create(friendEntity) == 0)
                 throw new Exception();
         }
+        public void DeleteFriend(UserDeletingFriendData userDeletingFriendData)
+        {
+            var findUserEntity = userRepository.FindByEmail(userDeletingFriendData.FriendEmail);
+            if (findUserEntity is null) throw new UserNotFoundException();
+
+            var friendEntity = new FriendEntity()
+            {
+                user_id = userDeletingFriendData.UserId,
+                friend_id = findUserEntity.id
+            };
+
+            if (this.friendRepository.Delete(friendEntity) == 0)
+                throw new Exception();
+        }
+
+
 
         private User ConstructUserModel(UserEntity userEntity)
         {

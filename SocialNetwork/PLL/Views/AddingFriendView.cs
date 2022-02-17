@@ -38,9 +38,8 @@ namespace SocialNetwork.PLL.Views
             
             catch(Exception)
             {
-                AlertMessage.Show("Произоша ошибка при добавлении пользотваеля в друзья!");
+                AlertMessage.Show("Произошла ошибка при добавлении пользователя в друзья!");
             }
- 
         }
     }
 }
