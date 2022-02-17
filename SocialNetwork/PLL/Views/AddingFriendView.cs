@@ -35,8 +35,11 @@ namespace SocialNetwork.PLL.Views
             {
                 AlertMessage.Show("Пользователя с указанным почтовым адресом не существует!");
             }
-            
-            catch(Exception)
+            catch (UserAlreadyExistsException)
+            {
+                AlertMessage.Show("Пользователь с указанным адресом уже у вас в друзьях!");
+            }
+            catch (Exception)
             {
                 AlertMessage.Show("Произошла ошибка при добавлении пользователя в друзья!");
             }

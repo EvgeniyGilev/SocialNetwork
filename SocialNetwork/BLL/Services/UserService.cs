@@ -120,6 +120,10 @@ namespace SocialNetwork.BLL.Services
                 friend_id = findUserEntity.id
             };
 
+            //ищем пользователя в друзьях
+            var findFirendEntity = friendRepository.FindFirendId(friendEntity);
+            if (findFirendEntity is not null) throw new UserAlreadyExistsException();
+
             if (this.friendRepository.Create(friendEntity) == 0)
                 throw new Exception();
         }
@@ -133,6 +137,11 @@ namespace SocialNetwork.BLL.Services
                 user_id = userDeletingFriendData.UserId,
                 friend_id = findUserEntity.id
             };
+
+            //ищем пользователя в друзьях
+            var findFirendEntity = friendRepository.FindFirendId(friendEntity);
+            if (findFirendEntity is null) throw new UserNotFoundException();
+
 
             if (this.friendRepository.Delete(friendEntity) == 0)
                 throw new Exception();
