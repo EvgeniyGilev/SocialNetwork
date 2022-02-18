@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using SocialNetwork.DAL.Interfaces;
 
 namespace SocialNetwork.BLL.Services
 {
@@ -18,6 +19,13 @@ namespace SocialNetwork.BLL.Services
         public UserService()
         {
             userRepository = new UserRepository();
+            friendRepository = new FriendRepository();
+            messageService = new MessageService();
+        }
+
+        public UserService(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
             friendRepository = new FriendRepository();
             messageService = new MessageService();
         }
@@ -55,7 +63,6 @@ namespace SocialNetwork.BLL.Services
 
             if (this.userRepository.Create(userEntity) == 0)
                 throw new Exception();
-
         }
 
         public User Authenticate(UserAuthenticationData userAuthenticationData)
@@ -109,6 +116,10 @@ namespace SocialNetwork.BLL.Services
                     .Select(friendsEntity => FindById(friendsEntity.friend_id));
         }
 
+        /// <summary>
+        /// Добавляем в друзья
+        /// </summary>
+        /// <param name="userAddingFriendData">The user adding friend data.</param>
         public void AddFriend(UserAddingFriendData userAddingFriendData)
         {
             var findUserEntity = userRepository.FindByEmail(userAddingFriendData.FriendEmail);
@@ -127,6 +138,11 @@ namespace SocialNetwork.BLL.Services
             if (this.friendRepository.Create(friendEntity) == 0)
                 throw new Exception();
         }
+
+        /// <summary>
+        /// Удаляем из друзей
+        /// </summary>
+        /// <param name="userDeletingFriendData">The user deleting friend data.</param>
         public void DeleteFriend(UserDeletingFriendData userDeletingFriendData)
         {
             var findUserEntity = userRepository.FindByEmail(userDeletingFriendData.FriendEmail);
@@ -146,8 +162,6 @@ namespace SocialNetwork.BLL.Services
             if (this.friendRepository.Delete(friendEntity) == 0)
                 throw new Exception();
         }
-
-
 
         private User ConstructUserModel(UserEntity userEntity)
         {

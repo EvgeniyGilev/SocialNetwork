@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.DAL.Entities;
 using System.Collections.Generic;
+using SocialNetwork.DAL.Interfaces;
 
 namespace SocialNetwork.DAL.Repositories
 {
@@ -36,15 +37,5 @@ namespace SocialNetwork.DAL.Repositories
         {
             return Execute("delete from users where id = :id_p", new { id_p = id });
         }
-    }
-
-    public interface IUserRepository
-    {
-        int Create(UserEntity userEntity);
-        UserEntity FindByEmail(string email);
-        IEnumerable<UserEntity> FindAll();
-        UserEntity FindById(int id);
-        int Update(UserEntity userEntity);
-        int DeleteById(int id);
     }
 }

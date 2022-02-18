@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.DAL.Entities;
 using System.Collections.Generic;
+using SocialNetwork.DAL.Interfaces;
 
 namespace SocialNetwork.DAL.Repositories
 {
@@ -25,14 +26,5 @@ namespace SocialNetwork.DAL.Repositories
         {
             return Execute("delete from messages where id = :id", new { id = messageId });
         }
-
-    }
-
-    public interface IMessageRepository
-    {
-        int Create(MessageEntity messageEntity);
-        IEnumerable<MessageEntity> FindBySenderId(int senderId);
-        IEnumerable<MessageEntity> FindByRecipientId(int recipientId);
-        int DeleteById(int messageId);
     }
 }

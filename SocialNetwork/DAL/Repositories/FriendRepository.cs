@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.DAL.Entities;
 using System.Collections.Generic;
+using SocialNetwork.DAL.Interfaces;
 
 namespace SocialNetwork.DAL.Repositories
 {
@@ -24,15 +25,6 @@ namespace SocialNetwork.DAL.Repositories
         {
             return QueryFirstOrDefault<FriendEntity>("select * from friends where user_id = :user_id and friend_id =:friend_id", friendEntity);
         }
-
-    }
-
-    public interface IFriendRepository
-    {
-        int Create(FriendEntity friendEntity);
-        IEnumerable<FriendEntity> FindAllByUserId(int userId);
-        int Delete(FriendEntity friendEntity);
-        FriendEntity FindFirendId(FriendEntity friendEntity);
 
     }
 }
